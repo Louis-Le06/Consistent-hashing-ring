@@ -1,0 +1,16 @@
+import glob
+import hancho
+
+tools = hancho.load("{hancho_dir}/tools/tools_base.hancho")
+
+smhasher = hancho.task(
+    tools.cpp_bin,
+    in_srcs = glob.glob("src/*.cpp") + glob.glob("src/*.c"),
+    out_bin = "smhasher",
+    cpp_opts = [
+        "-O3",
+        "-MMD",
+        "-march={toolchain.arch}",
+        "-std={cpp_std}",
+    ],
+)
